@@ -9,7 +9,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
+/**
+ * Запускаем браузер, открывае стр. http://www.google.com
+ * Выполняем поиск по слову "webdriver"
+ */
 public class MyFirstTest {
+
     private WebDriver driver;
     private WebDriverWait wait;
 
