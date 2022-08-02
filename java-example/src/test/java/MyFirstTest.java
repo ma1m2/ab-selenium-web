@@ -40,6 +40,17 @@ public class MyFirstTest {
         wait.until(titleIs("webdriver - Поиск в Google"));
     }
 
+    /**
+     * сценарий для логина в панель администрирования
+      */
+    @Test
+    public void litecartAdmit(){
+        driver.get("http://localhost/litecart/admin/login.php");
+        driver.findElement(By.xpath("//input[@name='username']")).sendKeys("admin");
+        driver.findElement(By.xpath("//input[@name='password']")).sendKeys("admin");
+        driver.findElement(By.xpath("//button[@name='login']")).click();
+    }
+
     @After
     public void stop(){
         driver.quit();
