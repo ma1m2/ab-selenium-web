@@ -2,12 +2,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Thread.sleep;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 /**
@@ -21,21 +24,34 @@ public class MyFirstTest {
 
     @Before
     public void start(){
-        Capabilities caps = new ImmutableCapabilities("unhandledPromptBehavior", "dismiss"); //unhandledPromptBehavior//unexpectedAlertBehaviour
-        //driver = new ChromeDriver(caps);
-        //driver = new FirefoxDriver();
-        driver = new InternetExplorerDriver(caps);
+/*        ChromeOptions options = new ChromeOptions();
+        options.addArguments("start-fullscreen");
+        options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
+        driver = new ChromeDriver(options);*/
+
+/*        InternetExplorerOptions options = new InternetExplorerOptions();
+        options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
+        //options.destructivelyEnsureCleanSession();//doesn't work
+        driver = new InternetExplorerDriver(options);*/
+
+        FirefoxOptions options = new FirefoxOptions();
+        options.setBinary(new FirefoxBinary(new File("C:\\Program Files\\Nightly\\firefox.exe")));
+        options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
+        options.addArguments("start-fullscreen");
+        driver = new FirefoxDriver(options);
+
         System.out.println(((HasCapabilities) driver).getCapabilities());
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10);
     }
 
     @Test
-    public void myFirstTest(){
+    public void myFirstTest() throws InterruptedException {
         driver.get("http://www.google.com");
-        wait.until(titleIs("Google"));
-//        driver.findElement(By.name("q")).sendKeys("webdriver", Keys.ENTER);
-//        wait.until(titleIs("webdriver - Поиск в Google"));
+        ((JavascriptExecutor)driver).executeScript("alert(\"HI\");");
+        sleep(3000);
+        driver.findElement(By.name("q")).sendKeys("webdriver", Keys.ENTER);
+        wait.until(titleIs("webdriver - Поиск в Google"));
     }
 
     /**
