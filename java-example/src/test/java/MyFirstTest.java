@@ -2,11 +2,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
@@ -23,18 +22,18 @@ public class MyFirstTest {
 
     @Before
     public void start(){
-/*        ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("start-fullscreen");
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
-        driver = new ChromeDriver(options);*/
+        driver = new ChromeDriver(options);
 
-        InternetExplorerOptions options = new InternetExplorerOptions();
+ /*       InternetExplorerOptions options = new InternetExplorerOptions();
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
         options.destructivelyEnsureCleanSession();//doesn't work
         driver = new InternetExplorerDriver(options);
         Set<Cookie> cookies = driver.manage().getCookies();
         System.out.println("cookies is: " + cookies);
-
+*/
 /*        FirefoxOptions options = new FirefoxOptions();
         options.setBinary(new FirefoxBinary(new File("C:\\Program Files\\Nightly\\firefox.exe")));
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
@@ -53,6 +52,10 @@ public class MyFirstTest {
         sleep(3000);
         driver.findElement(By.name("q")).sendKeys("webdriver", Keys.ENTER);
         wait.until(titleIs("webdriver - Поиск в Google"));
+        System.out.println("============================================");
+        System.out.println("cookies is: " + driver.manage().getCookies());
+        System.out.println("============================================");
+        driver.manage().deleteAllCookies();
         System.out.println("cookies is: " + driver.manage().getCookies());
     }
 
